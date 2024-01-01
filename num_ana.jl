@@ -68,18 +68,24 @@ function central_h(arr, h)
     return arr_der
 end
 
-function derivative_h(arr, h)
+function derivative_h(arr, h, dim)
     # This function is compute the total derivative on the data array
     # Truncation error: O(h)
     
     # input variables
     # h: derivated interval
     # arr : input data array 
+    # dim: derivatived dimension of the array
     
     # output variables
     # arr_new: output derivated data array
 
-    arr_new = similar(arr)
+    shape = size(arr)
+    shape_new  = shape
+    shape_new[dim] = 1
+    arr_r = reshape(arr, (shape[dim], prod(shape_new)))
+
+    arr_new = similar(arr_r)
 
     arr_new[1, :] = forward_h(arr, h)
     arr_new[end, :] = backward_h(arr, h)
