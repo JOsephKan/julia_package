@@ -91,6 +91,8 @@ function derivative_h(arr, h, dim)
     arr_new[end, :] = backward_h(arr, h)
     arr_new[2:end-1, :] = central_h(arr, h)
 
+    arr_new = reshape(arr_new, shape)
+
     return arr_new
 end
 
